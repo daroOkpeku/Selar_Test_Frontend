@@ -21,24 +21,24 @@ const bookSlot = async (slot, visitorDetails) => {
   // Create Google Calendar event for vendor and visitor
 };
 
-onMounted(() => {
-const userInfo = localStorage.getItem('userinfo')
+// onMounted(() => {
+// const userInfo = localStorage.getItem('userinfo')
 
 
-if (userInfo) {
-  try {
-   let datax = JSON.parse(userInfo)
-       localData.value = datax
-    // console.log('User token:', localData.value.token)
-  } catch (e) {
-    // console.error('Error parsing user info:', e)
-    router.push({ name: 'login' })
-  }
-} else {
-  router.push({ name: 'login' })
-}
+// if (userInfo) {
+//   try {
+//    let datax = JSON.parse(userInfo)
+//        localData.value = datax
+//     // console.log('User token:', localData.value.token)
+//   } catch (e) {
+//     // console.error('Error parsing user info:', e)
+//     router.push({ name: 'login' })
+//   }
+// } else {
+//   router.push({ name: 'login' })
+// }
 
-})
+// })
 
 
 </script>
