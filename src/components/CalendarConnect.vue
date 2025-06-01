@@ -18,6 +18,10 @@
       v-if="events.length"
       :events="events"
       :views="['day', 'week']"
+      default-view="week"
+      :time-from="7 * 60"
+      :time-to="18 * 60"
+      :time-step="30"
       style="height:500px; width:900px"
       @event-click="onEventClick"
     />
@@ -614,6 +618,8 @@ fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events/${eventId
 
 
 
+
+
 onMounted(async () => {
   try {
     await gapiLoaded();
@@ -625,7 +631,9 @@ onMounted(async () => {
    setTimeout(() => {
     localStorage.removeItem('google_oauth')
   }, 40 * 60 * 1000)
+
 });
+
 </script>
 
 
@@ -643,12 +651,16 @@ onMounted(async () => {
 .vuecal__event.taken-event {
   background-color: #ff4d4d !important;
   color: white;
+
 }
 
-.vuecal__event.free-event {
+ .vuecal__event.free-event {
   background-color: #4dff4d !important;
   color: black;
+
 }
+
+
 </style>
 
 
