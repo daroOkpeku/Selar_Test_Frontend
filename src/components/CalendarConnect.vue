@@ -53,20 +53,8 @@
         <button  v-if="accessToken" class="bg-green-400 rounded-md py-2 px-2 text-center capitalize" :disabled="isbook" @click="createWorkdayEvent"  >{{ selectedEvent.taken_by?"Cancel Appointment":isbook?"Please wait":"Book Appointment" }} </button>
 
     </div>
-   
 
-     <!-- <VueDatePicker
-     v-model="date"
-    :enable-time-picker="true"
-    :min-time="{ hours: 8, minutes: 0 }"
-    :max-time="{ hours: 17, minutes: 0 }"
-    :min-date="today"
-    :minutes-increment="60"
-    :is-24="false"
-    :auto-apply="true"
-    placeholder="Select appointment time"
-      /> -->
-
+   <button  v-if="accessToken" class="bg-green-400 rounded-md py-2 px-2 text-center capitalize"  @click="handleLogout"  >Logout </button>
 
     </section>
   
@@ -279,6 +267,26 @@ fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events/${eventId
 
 
 };
+
+
+
+const handleLogout =()=>{
+
+  fetch('https://oauth2.googleapis.com/revoke?token=' + accessToken.value, {
+  method: 'POST',
+  headers: {
+    'Content-type': 'application/x-www-form-urlencoded'
+  }
+})
+.then(() => {
+   accessToken.value =""
+   selectedEvent.value=null
+  localStorage.removeItem('google_oauth');
+  alert('Logged out and token revoked');
+})
+.catch(err => console.error('Failed to revoke token', err));
+
+}
 
 
 
@@ -563,6 +571,7 @@ fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events/${eventId
     if (res.status === 204) {
       console.log('Event deleted successfully.');
       alert('Event was successfully deleted from Google Calendar!');
+      selectedEvent.value = null
     } else {
       return res.json().then(data => {
         console.error('Failed to delete event:', data);
